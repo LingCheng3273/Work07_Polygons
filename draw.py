@@ -58,7 +58,7 @@ def add_box( points, x, y, z, width, height, depth ):
 
 def add_sphere( matrix, cx, cy, cz, r, step ):
     points = generate_sphere(cx, cy, cz, r, step)
-    num_steps = int(1/step+0.1)
+    num_steps = int(1/step+.1)
     
     lat_start = 0
     lat_stop = num_steps
@@ -66,11 +66,15 @@ def add_sphere( matrix, cx, cy, cz, r, step ):
     longt_stop = num_steps
 
     num_steps+= 1
+    print str(len(points))
     for lat in range(lat_start, lat_stop):
-        for longt in range(longt_start, longt_stop+1):
+        for longt in range(longt_start, longt_stop):
             index = lat * num_steps + longt
-            if index <= len(points)-int(1.0/step):
-                print 
+            print "lat: "+str(lat)
+            print "longt: "+str(longt)
+            print "index number:" + str(index)
+            if index <= len(points)-2*(int(1.0/step)):
+                
                 add_polygon(matrix, points[index][0],
                             points[index][1],
                             points[index][2],
@@ -80,6 +84,18 @@ def add_sphere( matrix, cx, cy, cz, r, step ):
                             points[index+num_steps][0],
                             points[index+num_steps][1],
                             points[index+num_steps][2])
+            else:
+                break
+
+##    add_polygon(matrix, points[index][0],
+##                            points[index][1],
+##                            points[index][2],
+##                            points[index+1][0],
+##                            points[index+1][1],
+##                            points[index+1][2],
+##                            points[0][0],
+##                            points[0][1],
+##                            points[0][2])
 
 def generate_sphere( cx, cy, cz, r, step ):
     points = []
